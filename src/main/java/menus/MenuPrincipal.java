@@ -17,6 +17,8 @@ public class MenuPrincipal {
         String opcion;
         do {
             System.out.println("Elige una opcion:");
+            //los 4 primeros puntos son de creación de infraestructura,
+            //en una situación normal no serían opciones para el usuario
             System.out.println("1. Crear Base de Datos.");
             System.out.println("2. Borrar Base de Datos.");
             System.out.println("3. Crear Tablas.");

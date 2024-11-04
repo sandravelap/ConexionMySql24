@@ -6,10 +6,12 @@ public class Empleado {
     private int idEmpleado;
     private String apellido;
     private String oficio;
+    //el campo director también podría ser un objeto Empleado
     private int idDirector;
     private Date fechaAlta;
     private Double salario;
     private Double comision;
+    //el campo departamento también podría ser el id del departamento
     private Departamento departamento;
 
     public Empleado() {}
