@@ -3,10 +3,7 @@ package repositories;
 import dao.Departamento;
 import dataBase.ConnectionBD;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 //en la arquitectura de capas con patrón DAO (Data Access Object)
@@ -39,5 +36,30 @@ public class DepartamentoRepository {
             throw new RuntimeException(e);
         }
         return listadoDepartamentos;
+    }
+
+    public Departamento depById(int id){
+        //DAO a devolver
+        Departamento departamentoById = new Departamento();
+        //conectamos con la base de datos asegurando la desconexión con el try with resources
+        try(Connection miCon = conBD.conectarDB()){
+            //instanciamos un PreparedStatement porque la consulta tiene parámetros
+            //pondremos ? donde queramos insertar el valor de una variable
+            PreparedStatement statementDepById = miCon.prepareStatement("select * from departamentos where dept_no = ?");
+            //fijamos el valor del interrogante con el método adecuado a su tipo de dato
+            //y la posición que ocupa en el statement empezando por 1
+            statementDepById.setInt(1, id);
+            ResultSet rs = statementDepById.executeQuery();
+            //almacenamos el resultado de la consulta en el DAO
+            while(rs.next()){
+                departamentoById = new Departamento();
+                departamentoById.setIdDepartamento(rs.getInt("dept_no"));
+                departamentoById.setNombre(rs.getString("dnombre"));
+                departamentoById.setLocalidad(rs.getString("loc"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return departamentoById;
     }
 }

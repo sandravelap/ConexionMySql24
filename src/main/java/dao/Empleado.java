@@ -9,8 +9,8 @@ public class Empleado {
     //el campo director también podría ser un objeto Empleado
     private int idDirector;
     private Date fechaAlta;
-    private Double salario;
-    private Double comision;
+    private float salario;
+    private float comision;
     //el campo departamento también podría ser el id del departamento
     private Departamento departamento;
 
@@ -56,19 +56,19 @@ public class Empleado {
         this.fechaAlta = fechaAlta;
     }
 
-    public Double getSalario() {
+    public float getSalario() {
         return salario;
     }
 
-    public void setSalario(Double salario) {
+    public void setSalario(float salario) {
         this.salario = salario;
     }
 
-    public Double getComision() {
+    public float getComision() {
         return comision;
     }
 
-    public void setComision(Double comision) {
+    public void setComision(float comision) {
         this.comision = comision;
     }
 

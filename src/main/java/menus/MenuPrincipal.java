@@ -4,6 +4,7 @@ import dataBase.GestionDataBase;
 import dataBase.GestionTablas;
 import libs.Leer;
 import services.DepartamentoService;
+import services.EmpleadoServices;
 
 import java.util.Scanner;
 
@@ -13,6 +14,8 @@ public class MenuPrincipal {
     private GestionDataBase db = new GestionDataBase();
     private GestionTablas gestionTablas = new GestionTablas();
     private DepartamentoService departamentoService = new DepartamentoService();
+    private EmpleadoServices empleadoServices = new EmpleadoServices();
+
     public void muestraMenu() {
         String opcion;
         do {
@@ -25,6 +28,7 @@ public class MenuPrincipal {
             System.out.println("4. Borrar Tablas.");
             //a partir de aquí los servicios al usuario
             System.out.println("5. Listar departamentos.");
+            System.out.println("6. Listar empleados.");
             System.out.println("0. Salir");
             opcion = this.pideOpcion();
             this.procesaOpcion(opcion);
@@ -59,6 +63,11 @@ public class MenuPrincipal {
             case "5" -> {
                 for (String dep: departamentoService.listarDepartamentos()) {
                     System.out.println(dep);
+                }
+            }
+            case "6" ->{
+                for (String emp: empleadoServices.listarEmpleados()){
+                    System.out.println(emp);
                 }
             }
             default -> System.out.println("Opción incorrecta");
