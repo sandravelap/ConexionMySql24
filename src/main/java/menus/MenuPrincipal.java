@@ -2,6 +2,7 @@ package menus;
 
 import dataBase.GestionDataBase;
 import dataBase.GestionTablas;
+import dto.EmpleadoDTO;
 import libs.Leer;
 import services.DepartamentoService;
 import services.EmpleadoServices;
@@ -29,6 +30,7 @@ public class MenuPrincipal {
             //a partir de aquí los servicios al usuario
             System.out.println("5. Listar departamentos.");
             System.out.println("6. Listar empleados.");
+            System.out.println("7. Insertar empleado.");
             System.out.println("0. Salir");
             opcion = this.pideOpcion();
             this.procesaOpcion(opcion);
@@ -69,6 +71,17 @@ public class MenuPrincipal {
                 for (String emp: empleadoServices.listarEmpleados()){
                     System.out.println(emp);
                 }
+            }
+            case "7" ->{
+                EmpleadoDTO nuevoEmpleado = new EmpleadoDTO();
+                nuevoEmpleado.setIdEmpleado(Leer.pedirEntero("Introduce el identificador del empleado:"));
+                nuevoEmpleado.setApellido(Leer.pedirCadena("Introduce el apellido del empleado:"));
+                nuevoEmpleado.setOficio(Leer.pedirCadena("Introduce el oficio del empleado:"));
+                nuevoEmpleado.setApeDir(Leer.pedirCadena("Introduce el apellido de su director:"));
+                nuevoEmpleado.setSalario(Leer.pedirFloat("Introduce su salario:"));
+                nuevoEmpleado.setComision(Leer.pedirFloat("Introduce su comisión:"));
+                nuevoEmpleado.setNombreDep(Leer.pedirCadena(("Introduce el nombre del departamento al que pertenece:")));
+                System.out.println(empleadoServices.insertarEmpleado(nuevoEmpleado));
             }
             default -> System.out.println("Opción incorrecta");
         }

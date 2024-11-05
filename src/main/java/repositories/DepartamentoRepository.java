@@ -62,4 +62,45 @@ public class DepartamentoRepository {
         }
         return departamentoById;
     }
+
+    public boolean nombreDepExiste(String nombre){
+        boolean existe = false;
+        try(Connection miCon = conBD.conectarDB()){
+            //instanciamos un PreparedStatement porque la consulta tiene parámetros
+            //pondremos ? donde queramos insertar el valor de una variable
+            PreparedStatement statementDepById = miCon.prepareStatement("select * from departamentos where dnombre = ?");
+            //fijamos el valor del interrogante con el método adecuado a su tipo de dato
+            //y la posición que ocupa en el statement empezando por 1
+            statementDepById.setString(1, nombre);
+            ResultSet rs = statementDepById.executeQuery();
+            //si la consulta devuelve algo el departamento existe.
+            if(rs.next()){
+                existe = true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return existe;
+    }
+    public Departamento depByName(String nombre){
+        Departamento dep = new Departamento();
+        try(Connection miCon = conBD.conectarDB()){
+            //instanciamos un PreparedStatement porque la consulta tiene parámetros
+            //pondremos ? donde queramos insertar el valor de una variable
+            PreparedStatement statementDepById = miCon.prepareStatement("select * from departamentos where dnombre = ?");
+            //fijamos el valor del interrogante con el método adecuado a su tipo de dato
+            //y la posición que ocupa en el statement empezando por 1
+            statementDepById.setString(1, nombre);
+            ResultSet rs = statementDepById.executeQuery();
+            //si la consulta devuelve algo el departamento existe.
+            if(rs.next()){
+                dep.setIdDepartamento(rs.getInt("dept_no"));
+                dep.setNombre(rs.getString("dnombre"));
+                dep.setLocalidad(rs.getString("loc"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return dep;
+    }
 }

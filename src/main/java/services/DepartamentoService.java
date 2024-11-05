@@ -5,7 +5,6 @@ import repositories.DepartamentoRepository;
 
 import java.util.ArrayList;
 
-
 //en el patrón DAO los servicios transforman la información recuperada en los DAOs a la información que
 //necesita el usuario aplicando la lógica de negocio necesaria
 public class DepartamentoService {

@@ -1,20 +1,15 @@
-package dao;
+package dto;
 
-import java.sql.Date;
-
-public class Empleado {
+public class EmpleadoDTO {
     private int idEmpleado;
     private String apellido;
     private String oficio;
-    //el campo director también podría ser un objeto Empleado
-    private int idDirector;
-    private Date fechaAlta;
+    private String apeDir;
     private float salario;
     private float comision;
-    //el campo departamento también podría ser el id del departamento
-    private Departamento departamento;
+    private String nombreDep;
 
-    public Empleado() {}
+    public EmpleadoDTO() {    }
 
     public int getIdEmpleado() {
         return idEmpleado;
@@ -40,20 +35,12 @@ public class Empleado {
         this.oficio = oficio;
     }
 
-    public int getIdDirector() {
-        return idDirector;
+    public String getApeDir() {
+        return apeDir;
     }
 
-    public void setIdDirector(int idDirector) {
-        this.idDirector = idDirector;
-    }
-
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
-
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public void setApeDir(String apeDir) {
+        this.apeDir = apeDir;
     }
 
     public float getSalario() {
@@ -72,11 +59,11 @@ public class Empleado {
         this.comision = comision;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public String getNombreDep() {
+        return nombreDep;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setNombreDep(String nombreDep) {
+        this.nombreDep = nombreDep;
     }
 }
