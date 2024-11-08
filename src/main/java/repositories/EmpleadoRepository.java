@@ -59,10 +59,10 @@ public class EmpleadoRepository {
     }
 
     public String insertEmpleado(EmpleadoDAO nuevoEmpleado) {
+        //en este caso devolvemos un mensaje diciendo si el empleado se ha podido insertar o no
         String mensaje = "";
-
         try(Connection miCon = conBD.conectarDB()){
-            //instanciamos un preparedStatement para pasarle el apellido
+            //instanciamos un preparedStatement donde insertaremos los datos del DAO
             PreparedStatement stmtInsertEmp = miCon.prepareStatement("insert into empleados values (?,?,?, ?, ?, ?, ?, ?)");
             //insertamos en la sentencia sql los valores del empleado
             stmtInsertEmp.setInt(1, nuevoEmpleado.getIdEmpleado());

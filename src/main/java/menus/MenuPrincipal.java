@@ -73,6 +73,9 @@ public class MenuPrincipal {
                 }
             }
             case "7" ->{
+                //Definimos una clase empelado diferente que se ajusta a las necesidades de intercambio
+                //de información entre la interfaz de usuario y el servicio: DTO (Data Transfer Object)
+                //Modelamos la información que el usuario introduce.
                 EmpleadoDTO nuevoEmpleado = new EmpleadoDTO();
                 nuevoEmpleado.setIdEmpleado(Leer.pedirEntero("Introduce el identificador del empleado:"));
                 nuevoEmpleado.setApellido(Leer.pedirCadena("Introduce el apellido del empleado:"));
@@ -81,6 +84,7 @@ public class MenuPrincipal {
                 nuevoEmpleado.setSalario(Leer.pedirFloat("Introduce su salario:"));
                 nuevoEmpleado.setComision(Leer.pedirFloat("Introduce su comisión:"));
                 nuevoEmpleado.setNombreDep(Leer.pedirCadena(("Introduce el nombre del departamento al que pertenece:")));
+                //La interfaz entre el servicio y el usuario envía un DTO y recibe un String
                 System.out.println(empleadoServices.insertarEmpleado(nuevoEmpleado));
             }
             default -> System.out.println("Opción incorrecta");

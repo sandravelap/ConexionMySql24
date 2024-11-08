@@ -50,6 +50,9 @@ public class EmpleadoServices {
             mensaje += "El departamento no existe.\n";
             restriccionOK = false;
         }
+        //si se cumplen las restricciones de la base de datos y de la lógica de negocio (en este caso
+        //departamento y director no pueden ser null)
+        //generamos el DAO a enviar al repositorio para que pueda generar la consulta de inserción
         if (restriccionOK){
             empleadoDAO.setIdEmpleado(nuevoEmp.getIdEmpleado());
             empleadoDAO.setApellido(nuevoEmp.getApellido());
