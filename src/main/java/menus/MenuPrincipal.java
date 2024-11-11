@@ -31,6 +31,7 @@ public class MenuPrincipal {
             System.out.println("5. Listar departamentos.");
             System.out.println("6. Listar empleados.");
             System.out.println("7. Insertar empleado.");
+            System.out.println("8. Borrar empleado.");
             System.out.println("0. Salir");
             opcion = this.pideOpcion();
             this.procesaOpcion(opcion);
@@ -86,6 +87,14 @@ public class MenuPrincipal {
                 nuevoEmpleado.setNombreDep(Leer.pedirCadena(("Introduce el nombre del departamento al que pertenece:")));
                 //La interfaz entre el servicio y el usuario envía un DTO y recibe un String
                 System.out.println(empleadoServices.insertarEmpleado(nuevoEmpleado));
+            }
+            case "8" -> {
+                String mensaje = empleadoServices.borrarEmpleado(Leer.pedirCadena("Introduce el apellido del empleado:"));
+                if (mensaje.startsWith("Existen varios empleados con ese apellido")){
+                    int idEmpleado = Leer.pedirEntero(mensaje);
+                    //faltaría comprobar que el usuario introduce uno de los IDs que se proponen
+                    System.out.println(empleadoServices.borrarEmpleadoById(idEmpleado));
+                }
             }
             default -> System.out.println("Opción incorrecta");
         }

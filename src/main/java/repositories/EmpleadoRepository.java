@@ -40,7 +40,6 @@ public class EmpleadoRepository {
     //en este caso la comprobación devuelve cero si el usuario no existe, eso lo gestionará el servicio
     public int empleadoByName(String apellido){
         int idEmpleado = 0;
-
         try(Connection miCon = conBD.conectarDB()){
             //instanciamos un preparedStatement para pasarle el apellido
             PreparedStatement stmtEmpByName = miCon.prepareStatement("select emp_no from empleados where apellido = ?");
@@ -54,8 +53,23 @@ public class EmpleadoRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return idEmpleado;
+    }
+
+    //si tenemos en cuenta que el apellido se puede repetir, empleadoByName debería devolver un array
+
+    public ArrayList<Integer> empleadosByName(String apellido) throws SQLException {
+        ArrayList<Integer> idsEmpleados = new ArrayList<>();
+        try(Connection miCon = conBD.conectarDB()){
+            PreparedStatement stmtIdsByName = miCon.prepareStatement("select emp_no from empleados where apellido = ?");
+            stmtIdsByName.setString(1, apellido);
+            ResultSet rs = stmtIdsByName.executeQuery();
+            int i = 0;
+            while(rs.next()) {
+                idsEmpleados.add(rs.getInt("emp_no"));
+            }
+        }
+        return idsEmpleados;
     }
 
     public String insertEmpleado(EmpleadoDAO nuevoEmpleado) {
@@ -79,7 +93,18 @@ public class EmpleadoRepository {
         } catch (SQLException e) {
             mensaje ="Ocurrio un error al insertar el empleado";
         }
-
         return mensaje;
+    }
+
+    //en este caso propagamos el error para gestionar la excepción en el servicio y poder enviar el mensaje desde allí
+    public boolean borrarEmpleado(int idEmpleado) throws SQLException {
+        boolean borrado = false;
+        try(Connection miCon = conBD.conectarDB()) {
+            PreparedStatement stmtDelEmpleado = miCon.prepareStatement("delete from empleados where emp_no = ?");
+            stmtDelEmpleado.setInt(1, idEmpleado);
+            stmtDelEmpleado.executeUpdate();
+            borrado = true;
+        }
+        return borrado;
     }
 }
