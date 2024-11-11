@@ -91,8 +91,14 @@ public class MenuPrincipal {
             case "8" -> {
                 String mensaje = empleadoServices.borrarEmpleado(Leer.pedirCadena("Introduce el apellido del empleado:"));
                 if (mensaje.startsWith("Existen varios empleados con ese apellido")){
-                    int idEmpleado = Leer.pedirEntero(mensaje);
-                    //faltaría comprobar que el usuario introduce uno de los IDs que se proponen
+                    //el ususario debe introducir un entero de 4 dígitos
+                    int idEmpleado = Leer.pedirEntero(mensaje, "^\\d{4}$");
+                    //Comprobar que el usuario introduce uno de los IDs que se proponen
+                    String idEmpleadoUser = String.valueOf(idEmpleado);
+                    while (!mensaje.contains(idEmpleadoUser)) {
+                        idEmpleado= Leer.pedirEntero("Identificador incorrecto, por favor introduzca uno de los identificadores válidos. ", "^[0-9]{4}$");
+                        idEmpleadoUser = String.valueOf(idEmpleado);
+                    }
                     System.out.println(empleadoServices.borrarEmpleadoById(idEmpleado));
                 }
             }

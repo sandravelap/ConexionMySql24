@@ -91,7 +91,7 @@ public class EmpleadoRepository {
             stmtInsertEmp.executeUpdate();
             mensaje="Empleado insertado con exito";
         } catch (SQLException e) {
-            mensaje ="Ocurrio un error al insertar el empleado";
+            mensaje ="Ocurrió un error al insertar el empleado";
         }
         return mensaje;
     }
