@@ -13,7 +13,6 @@ public class EmpleadoRepository {
         //instanciamos los objetos DAO donde almacenar la información que se va a recuperar
         ArrayList<EmpleadoDAO> listadoEmpleados = new ArrayList<EmpleadoDAO>();
         EmpleadoDAO empAux;
-        //Integer idDepAux;
         //conectamos con la base de datos asegurando la desconexión con el try with resources
         try(Connection miCon = conBD.conectarDB()){
             //instanciamos un Statement porque la consulta no tiene parámetros

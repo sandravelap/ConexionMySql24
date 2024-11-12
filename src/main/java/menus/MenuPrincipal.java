@@ -14,6 +14,7 @@ public class MenuPrincipal {
     private Scanner sc = new Scanner(System.in);
     private GestionDataBase db = new GestionDataBase();
     private GestionTablas gestionTablas = new GestionTablas();
+    private MenuActualizar menuActualizar = new MenuActualizar();
     private DepartamentoService departamentoService = new DepartamentoService();
     private EmpleadoServices empleadoServices = new EmpleadoServices();
 
@@ -32,6 +33,7 @@ public class MenuPrincipal {
             System.out.println("6. Listar empleados.");
             System.out.println("7. Insertar empleado.");
             System.out.println("8. Borrar empleado.");
+            System.out.println("9. Actualizar empleado");
             System.out.println("0. Salir");
             opcion = this.pideOpcion();
             this.procesaOpcion(opcion);
@@ -69,12 +71,13 @@ public class MenuPrincipal {
                 }
             }
             case "6" ->{
-                for (String emp: empleadoServices.listarEmpleados()){
-                    System.out.println(emp);
+                for (EmpleadoDTO emp: empleadoServices.listarEmpleados()){
+                    System.out.println(emp.getApellido() + ". Oficio: " + emp.getOficio()
+                            + ". Departamento: " + emp.getNombreDep());
                 }
             }
             case "7" ->{
-                //Definimos una clase empelado diferente que se ajusta a las necesidades de intercambio
+                //Definimos una clase empleado diferente que se ajusta a las necesidades de intercambio
                 //de información entre la interfaz de usuario y el servicio: DTO (Data Transfer Object)
                 //Modelamos la información que el usuario introduce.
                 EmpleadoDTO nuevoEmpleado = new EmpleadoDTO();
@@ -101,6 +104,25 @@ public class MenuPrincipal {
                     }
                     System.out.println(empleadoServices.borrarEmpleadoById(idEmpleado));
                 }
+            }
+            case "9" ->{
+                System.out.println("Introduzca el ID del empleado a actualizar: ");
+                for (EmpleadoDTO emp: empleadoServices.listarEmpleados()){
+                    System.out.println("ID del empleado: "+emp.getIdEmpleado()+". Apellido: "+emp.getApellido() + ". Oficio: " + emp.getOficio()
+                            + ". Departamento: " + emp.getNombreDep());
+                }
+                //como no nos fiamos del usuario chequeamos que ha introducido correctamente el id
+                boolean idOk = false;
+                int idEmpleado  = Leer.pedirEntero("");
+                while (!idOk) {
+                    for (EmpleadoDTO emp: empleadoServices.listarEmpleados()){
+                        if (emp.getIdEmpleado() == idEmpleado){idOk = true;}
+                    }
+                    if (!idOk){
+                        idEmpleado = Leer.pedirEntero("Introduzca un id correcto: ");
+                    }
+                }
+                menuActualizar.muestraMenu(idEmpleado);
             }
             default -> System.out.println("Opción incorrecta");
         }
